@@ -3,14 +3,17 @@ package com.example.Model;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
-
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "Tempos")
 public class Tempo {
 	
 	 	@Id
@@ -18,7 +21,7 @@ public class Tempo {
 	 	@Column(name = "id")
 	    private long id;	  
 	 	 
-	 	private String descrição;
+	 	private String descricaoo;
 	 	
         private  double temperaturaminima;
 	 	
@@ -30,19 +33,19 @@ public class Tempo {
 	 	
 	 	private double longitude;
 	 	
-	 	@OneToOne(cascade = CascadeType.ALL)
-	    @JoinColumn(name = "tempo_id", referencedColumnName = "id")
-	    private DiaDaSemana diadasemana;
+		 @OneToOne(fetch = FetchType.LAZY,
+		            cascade = {
+		                CascadeType.PERSIST,
+		                CascadeType.MERGE
+		            })
+		    @JoinTable(name = "DiaDaSemana",
+		            joinColumns = { @JoinColumn(name = "tempo_id") },
+		            inverseJoinColumns = { @JoinColumn(name = "dia_id") })
+		    private DiaDaSemana semanas = new DiaDaSemana();
 	 	
-	 	public String getDescrição() {
-			return descrição;
-		}
-
-
-		public void setDescrição(String descrição) {
-			this.descrição = descrição;
-		}
-
+	   
+	 	
+	 
 
 		public double getTemperaturaminima() {
 			return temperaturaminima;
@@ -98,4 +101,15 @@ public class Tempo {
 			return id;
 		}
 
+
+		public String getDescricaoo() {
+			return descricaoo;
+		}
+
+
+		public void setDescricaoo(String descricaoo) {
+			this.descricaoo = descricaoo;
+		}
+		
+	
 }

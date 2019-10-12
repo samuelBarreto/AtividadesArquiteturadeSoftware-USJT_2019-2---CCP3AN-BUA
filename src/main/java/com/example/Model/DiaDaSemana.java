@@ -1,26 +1,29 @@
 package com.example.Model;
 
 import java.sql.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-@Entity // This tells Hibernate to make a table out of this class
+@Entity
+@Table(name = "DiaDaSemanas")
 public class DiaDaSemana {
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name = "id")
-    private long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
+	private long id;
+	
+	@Column(name = "DiaDaSemana")
+	private Date DiaDaSemana;
 
-    private Date  DiaDaSemana;
+	
 
-    @OneToOne(mappedBy = "diadasemana")
-    private Tempo tempo;
-    
 	public long getId() {
 		return id;
 	}
@@ -36,8 +39,6 @@ public class DiaDaSemana {
 	public void setDiaDaSemana(Date diaDaSemana) {
 		DiaDaSemana = diaDaSemana;
 	}
-
-	
 
 
 }
